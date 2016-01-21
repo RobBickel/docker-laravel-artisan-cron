@@ -1,0 +1,24 @@
+#!/bin/sh
+
+PIDFILE=/var/run/script-runner.pid
+
+if [ -f $PIDFILE ]; then
+	echo $0 is already running with pid $(cat $PIDFILE), aborting!
+	exit 1
+fi
+
+echo $$ >$PIDFILE
+
+echo Starting artisan task ${TASK}
+echo =============================
+
+php artisan ${TASK}
+
+echo =============================
+echo Artisan task ended ${TASK}
+
+retval=$?
+
+rm $PIDFILE
+
+exit $retval
