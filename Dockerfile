@@ -1,4 +1,4 @@
-FROM dylanlindgren/docker-phpcli:latest
+FROM debian:jessie
 MAINTAINER	Dylan Miles <dylan.g.miles@gmail.com>
 
 WORKDIR /tmp
@@ -6,6 +6,7 @@ WORKDIR /tmp
 # install required packages artisan
 RUN apt-get update -y && \
     apt-get install -y \
+    php5-cli \
     php5-curl \
     php5-mcrypt \
     php5-mongo \
@@ -16,8 +17,8 @@ RUN apt-get update -y && \
     php5-sqlite \
     php5-gd \
     php5-tidy
-
-RUN mkdir -p /data
+    
+RUN mkdir -p /data/web
 VOLUME ["/data"]
 WORKDIR /data/web
 
@@ -26,9 +27,9 @@ RUN		apt-get update -qq && \
 		apt-get install -y \
 					curl \
 					wget && \
-          apt-get clean autoclean && \
-          apt-get autoremove --yes && \
-          rm -rf /var/lib/{apt,dpkg,cache,log}/
+         apt-get clean autoclean && \
+         apt-get autoremove --yes && \
+         rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 ENV		GO_CRON_VERSION v0.0.7
 
@@ -37,7 +38,7 @@ RUN		curl -L https://github.com/odise/go-cron/releases/download/${GO_CRON_VERSIO
 		&& chmod u+x /usr/local/bin/go-cron
 
 # install backup scripts
-ADD		script-runner /usr/local/bin/script-runner
+ADD		artisan-runner /usr/local/bin/artisan-runner
 
 #18080 http status port
 EXPOSE		18080

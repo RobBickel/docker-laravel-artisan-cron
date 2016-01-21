@@ -10,11 +10,11 @@ fi
 echo $$ >$PIDFILE
 
 echo Starting artisan task ${TASK}
-echo =============================
+echo ===========================================
 
 php artisan ${TASK}
 
-echo =============================
+echo ===========================================
 echo Artisan task ended ${TASK}
 
 retval=$?
