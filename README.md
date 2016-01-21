@@ -7,9 +7,10 @@ Example usage which will backup the source file or folder every day at 03:00. Yo
 ```bash
 docker run -d \
 -v /var/data:/var/data
--v /var/scripts:/var/scripts \
 -p 18080:18080 \
 -e SCHEDULE="0 0 3 * *" \
 -e TASK=artisantask
 dylangmiles/docker-laravel-artisan-cron
 ```
+
+The working directory is /var/data/web.
